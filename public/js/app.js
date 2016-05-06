@@ -79,7 +79,7 @@
             templateUrl: 'frames.html',
             controller: 'FramesCtrl',
             data: {
-              pageTitle: 'Video Frames Analysis'
+              pageTitle: 'Video Recognition Results'
             }
           });
         }
