@@ -58,6 +58,64 @@
 })(window, window.angular);
 
 /**
+ * @fileOverview Frames view.
+ * @module frames
+ */
+
+(function(window, angular) {
+    "use strict";
+
+    var module = angular.module('frames', [
+      'ui.router',
+      'frame-api'
+    ]);
+
+    // Routes
+    module.config([
+      '$stateProvider', function ($stateProvider) {
+        $stateProvider
+          .state('frames', {
+            url: '/video/{id}',
+            templateUrl: 'frames.html',
+            controller: 'FramesCtrl',
+            data: {
+              pageTitle: 'Video Frames Analysis'
+            }
+          });
+        }
+    ]);
+
+    // Controllers
+    module.controller('FramesCtrl', [
+      '$scope', '$stateParams', 'frameApi', '$timeout',
+      function ($scope, $stateParams, frameApi, $timeout) {
+        $scope.frames = {};
+        $scope.loading = false;
+
+        var timeout, interval = 5000;
+        function loadFrames(id) {
+          $scope.framesLoading = true;
+          frameApi.get(id)
+            .then(function (res) {
+              if ($scope.frames.length !== res.data.length){
+                $scope.frames = res.data;
+              }
+            }, function (res) {
+              console.error("Failed to load frames: " + res.status);
+            })
+            .finally(function () {
+              $scope.framesLoading = false;
+            });
+
+          timeout = $timeout(loadFrames, interval, true, id);
+        }
+
+        loadFrames($stateParams.id);
+      }
+    ]);
+    
+})(window, window.angular);
+/**
  * @fileOverview Home view.
  * @module home
  */
@@ -68,8 +126,7 @@
     var module = angular.module('home', [
       'ui.router',
       'video-api',
-      'file-model',
-      'frame-api'
+      'file-model'
     ]);
 
     // Routes
@@ -95,15 +152,12 @@
         $scope.loading = false;
         $scope.video = null;
 
-        $scope.frames = [];
-        $scope.framesLoading = false;
-
         $scope.upload = function (file) {
           $scope.loading = true;
           videoApi.upload(file)
             .then(function (res) {
               $scope.video = res.data;
-              loadFrames(res.data.id);
+              $state.go('frames', {id: res.data.id});
             }, function (res) {
               console.error("Failed to load facilities: " + res.status);
               $mdDialog.show($mdDialog.alert()
@@ -116,22 +170,6 @@
               $scope.loading = false;
             });
         };
-
-        var timeout, interval = 5000;
-        function loadFrames(id) {
-          $scope.framesLoading = true;
-          frameApi.get(id)
-            .then(function (res) {
-              $scope.frames = res.data;
-            }, function (res) {
-              console.error("Failed to load frames: " + res.status);
-            })
-            .finally(function () {
-              $scope.framesLoading = false;
-            });
-
-          timeout = $timeout(loadFrames, interval, true, id);
-        }
       }
     ]);
     
@@ -184,7 +222,8 @@
   var app = angular.module('app', [
     'ui.router', // for ui routing
     'ngMaterial', // activate material design
-    'home'
+    'home',
+    'frames'
   ]);
 
   // Config
@@ -230,8 +269,12 @@
 
   // Main application controller
   app.controller('AppCtrl', [
-    '$rootScope',
-    function ($rootScope) {
+    '$rootScope', '$state',
+    function ($rootScope, $state) {
+
+      $rootScope.gotoHome = function () {
+        $state.go('home');
+      };
 
       $rootScope.pageTitle = 'Clickberry Video Recognition Service';
       $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {

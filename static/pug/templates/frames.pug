@@ -1,0 +1,34 @@
+script(type="text/ng-template", id="frames.html")
+
+    div(layout="column")
+        md-toolbar.md-primary.md-hue-1.app-status
+        md-toolbar.md-primary.app-stats(layout="column")
+            md-toolbar-tools(flex="100", layout="row", layout-align="center center")
+                div(flex, layout="row", layout-align="start center")
+                    md-button(aria-label="Home", ng-click="gotoHome()")
+                        md-icon.fa.fa-angle-left
+                        span Upload More
+        md-toolbar.md-primary.app-primary(layout="column")
+            md-toolbar-tools(flex="100", layout="row", layout-align="center center")
+                    div(flex)
+                    div(flex="80")
+                        p.md-display-2 Video Uploaded
+                        p.md-subhead Object recognition results will be available in a few seconds.
+                    div(flex)
+        md-content.app-secondary
+            div.app-secondary-annotation(ng-if="!frames.length", layout="row")
+                div(flex)
+                div(flex="80")
+                    p Processing video...
+                div(flex)
+            ul.list-items(ng-if="frames.length")
+                li(layout="row", layout-align="start center", ng-repeat="frame in frames")
+                    div(flex="10", layout="row", layout-align="start center")
+                    div(flex="20")
+                        a(href="{{frame.image}}", target="_blank")
+                            img.list-item-image(ng-src="{{frame.image}}")
+                    div(flex="60")
+                        h2.md-title Frame {{frame.index}}
+                        p.md-subhead {{frame.tags.join(', ')}}
+                    div(flex)
+

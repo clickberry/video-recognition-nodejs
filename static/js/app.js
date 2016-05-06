@@ -9,7 +9,8 @@
   var app = angular.module('app', [
     'ui.router', // for ui routing
     'ngMaterial', // activate material design
-    'home'
+    'home',
+    'frames'
   ]);
 
   // Config
@@ -55,8 +56,12 @@
 
   // Main application controller
   app.controller('AppCtrl', [
-    '$rootScope',
-    function ($rootScope) {
+    '$rootScope', '$state',
+    function ($rootScope, $state) {
+
+      $rootScope.gotoHome = function () {
+        $state.go('home');
+      };
 
       $rootScope.pageTitle = 'Clickberry Video Recognition Service';
       $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {

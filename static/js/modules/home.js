@@ -9,8 +9,7 @@
     var module = angular.module('home', [
       'ui.router',
       'video-api',
-      'file-model',
-      'frame-api'
+      'file-model'
     ]);
 
     // Routes
@@ -36,15 +35,12 @@
         $scope.loading = false;
         $scope.video = null;
 
-        $scope.frames = [];
-        $scope.framesLoading = false;
-
         $scope.upload = function (file) {
           $scope.loading = true;
           videoApi.upload(file)
             .then(function (res) {
               $scope.video = res.data;
-              loadFrames(res.data.id);
+              $state.go('frames', {id: res.data.id});
             }, function (res) {
               console.error("Failed to load facilities: " + res.status);
               $mdDialog.show($mdDialog.alert()
@@ -57,22 +53,6 @@
               $scope.loading = false;
             });
         };
-
-        var timeout, interval = 5000;
-        function loadFrames(id) {
-          $scope.framesLoading = true;
-          frameApi.get(id)
-            .then(function (res) {
-              $scope.frames = res.data;
-            }, function (res) {
-              console.error("Failed to load frames: " + res.status);
-            })
-            .finally(function () {
-              $scope.framesLoading = false;
-            });
-
-          timeout = $timeout(loadFrames, interval, true, id);
-        }
       }
     ]);
     
