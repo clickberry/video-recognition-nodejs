@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="AppCtrl">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title ng-bind="pageTitle">Clickberry Video Recognition Service</title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/angular-material.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/app.min.css">
+  </head>
+  <body>
+    <div class="ng-cloak" layout="row">
+      <div flex></div>
+      <div class="page-content md-whiteframe-8dp" flex-xs="100" flex-sm="80" flex-md="60" flex-gt-md="50">
+        <div ui-view></div>
+        <script type="text/ng-template" id="home.html">
+          <div layout="column">
+            <md-toolbar class="md-primary md-hue-1 app-status"></md-toolbar>
+            <md-toolbar class="md-primary app-stats" layout="column">
+              <md-toolbar-tools flex="100" layout="row" layout-align="center center">
+                <div flex="10" layout="row" layout-align="center center"></div>
+                <div flex></div>
+              </md-toolbar-tools>
+            </md-toolbar>
+            <md-toolbar class="md-primary app-primary" layout="column">
+              <md-toolbar-tools flex="100" layout="row" layout-align="center center">
+                <div flex></div>
+                <div flex="80">
+                  <form name="uploadform" ng-submit="upload(file)">
+                    <p class="md-display-2">Upload video</p>
+                    <md-input-container class="md-block">
+                      <input class="file-input" required type="file" file-model="file" accept="video/*">
+                    </md-input-container>
+                    <md-button class="md-fab md-raised md-accent app-button" type="submit" aria-label="Upload" ng-disabled="uploadform.$invalid">
+                      <md-icon class="fa fa-circle-o-notch fa-spin faster ng-animate-disabled" ng-show="loading"> </md-icon>
+                      <md-icon class="fa fa-cloud-upload ng-animate-disabled" ng-show="!loading"></md-icon>
+                    </md-button>
+                  </form>
+                </div>
+                <div flex></div>
+              </md-toolbar-tools>
+            </md-toolbar>
+            <md-content class="app-secondary">
+              <div class="app-secondary-annotation" ng-if="!video" layout="row">
+                <div flex></div>
+                <div flex="80">
+                  <p>Select a video for object recognition and press the button.</p>
+                </div>
+                <div flex></div>
+              </div>
+              <div class="app-secondary-annotation" ng-if="video &amp;&amp; !frames.length" layout="row">
+                <div flex></div>
+                <div flex="80">
+                  <p>Processing video...</p>
+                </div>
+                <div flex></div>
+              </div>
+              <ul class="list-items" ng-if="frames.length">
+                <li layout="row" layout-align="start center" ng-repeat="frame in frames track by frame.id">
+                  <div flex="10" layout="row" layout-align="start center">
+                    <md-icon class="fa fa-clock-o list-item-icon"></md-icon>
+                  </div>
+                  <div flex="20" layout="row"><img flex ng-src="{{frame.image}}"></div>
+                  <div flex="60">
+                    <h2 class="md-title">Frame {{frame.index}}</h2>
+                    <p class="md-subhead">{{frame.tags.join(', ')}}</p>
+                  </div>
+                  <div flex></div>
+                </li>
+              </ul>
+            </md-content>
+          </div>
+        </script>
+      </div>
+      <div flex></div>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-ui-router.min.js"></script>
+    <script src="/js/angular-material.min.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>

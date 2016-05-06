@@ -1,0 +1,42 @@
+script(type="text/ng-template", id="home.html")
+
+    div(layout="column")
+        md-toolbar.md-primary.md-hue-1.app-status
+        md-toolbar.md-primary.app-stats(layout="column")
+            md-toolbar-tools(flex="100", layout="row", layout-align="center center")
+                div(flex="10", layout="row", layout-align="center center")
+                div(flex)
+        md-toolbar.md-primary.app-primary(layout="column")
+            md-toolbar-tools(flex="100", layout="row", layout-align="center center")
+                    div(flex)
+                    div(flex="80")
+                        form(name="uploadform", ng-submit="upload(file)")
+                            p.md-display-2 Upload video
+                            md-input-container.md-block
+                                input.file-input(required, type="file", file-model="file", accept="video/*")
+                            md-button.md-fab.md-raised.md-accent.app-button(type="submit", aria-label="Upload", ng-disabled="uploadform.$invalid")
+                                md-icon.fa.fa-circle-o-notch.fa-spin.faster.ng-animate-disabled(ng-show="loading") 
+                                md-icon.fa.fa-cloud-upload.ng-animate-disabled(ng-show="!loading")
+                    div(flex)
+        md-content.app-secondary
+            div.app-secondary-annotation(ng-if="!video", layout="row")
+                div(flex)
+                div(flex="80")
+                    p Select a video for object recognition and press the button.
+                div(flex)
+            div.app-secondary-annotation(ng-if="video && !frames.length", layout="row")
+                div(flex)
+                div(flex="80")
+                    p Processing video...
+                div(flex)
+            ul.list-items(ng-if="frames.length")
+                li(layout="row", layout-align="start center", ng-repeat="frame in frames track by frame.id")
+                    div(flex="10", layout="row", layout-align="start center")
+                        md-icon.fa.fa-clock-o.list-item-icon
+                    div(flex="20", layout="row")
+                        img(flex, ng-src="{{frame.image}}")
+                    div(flex="60")
+                        h2.md-title Frame {{frame.index}}
+                        p.md-subhead {{frame.tags.join(', ')}}
+                    div(flex)
+

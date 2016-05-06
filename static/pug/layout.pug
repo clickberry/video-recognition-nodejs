@@ -1,0 +1,27 @@
+doctype html
+html(lang='en', ng-app='app', ng-controller='AppCtrl')
+    head
+        meta(http-equiv='content-type', content='text/html; charset=utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+
+        title(ng-bind="pageTitle") Clickberry Video Recognition Service
+
+        link(rel="shortcut icon", href="/favicon.png", type="image/x-icon")
+        link(rel="icon", href="/favicon.png", type="image/x-icon")
+
+        link(rel='stylesheet', href='/css/angular-material.min.css')
+        link(rel='stylesheet', href='/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/css/app.min.css')
+    body
+
+        div.ng-cloak(layout="row")
+            div(flex)
+            div.page-content.md-whiteframe-8dp(flex-xs="100", flex-sm="80", flex-md="60", flex-gt-md="50")
+                block content
+            div(flex)
+
+        script(src='/js/jquery.min.js')
+        script(src='/js/angular.min.js')
+        script(src='/js/angular-ui-router.min.js')
+        script(src='/js/angular-material.min.js')
+        script(src='/js/app.js')

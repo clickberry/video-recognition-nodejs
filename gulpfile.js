@@ -103,7 +103,7 @@ gulp.task('libs', [
 
 // common
 gulp.task('common', function () {
-  return gulp.src('src/*.*')
+  return gulp.src('static/*.*')
     .pipe(gulp.dest('public'));
 });
 
@@ -132,7 +132,7 @@ gulp.task('stylus', function () {
     .pipe(stylus({
       compress: true
     }))
-    .pipe(rename('auction.min.css'))
+    .pipe(rename('app.min.css'))
     .pipe(gulp.dest('public/css'));
 });
 
@@ -142,14 +142,14 @@ gulp.task('js', function () {
       'static/js/modules/*.js',
       'static/js/*.js',
     ])
-    .pipe(concat('auction.js'))
+    .pipe(concat('app.js'))
     //.pipe(uglify())
     //.pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('public/js'));
 });
 
 
-// auction application
-gulp.task('auction', ['common', 'images', 'pug', 'stylus', 'js']);
+// application dependencies
+gulp.task('app', ['common', 'images', 'pug', 'stylus', 'js']);
 
-gulp.task('default', ['libs', 'auction']);
+gulp.task('default', ['libs', 'app']);
