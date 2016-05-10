@@ -15,7 +15,7 @@ script(type="text/ng-template", id="home.html")
                             p.md-subhead Upload your local video for recognition
                             md-input-container.md-block
                                 input.file-input(required, type="file", file-model="file")
-                            md-button.md-fab.md-raised.md-accent.app-button(type="submit", aria-label="Upload", ng-disabled="uploadform.$invalid")
+                            md-button.md-fab.md-raised.md-accent.app-button(type="submit", aria-label="Upload", ng-disabled="uploadform.$invalid || loading")
                                 md-icon.fa.fa-circle-o-notch.fa-spin.faster.ng-animate-disabled(ng-show="loading") 
                                 md-icon.fa.fa-cloud-upload.ng-animate-disabled(ng-show="!loading")
                     div(flex)

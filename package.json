@@ -1,6 +1,6 @@
 {
   "name": "video-recognition-nodejs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web service for object recognition on video frames",
   "main": "index.js",
   "dependencies": {
