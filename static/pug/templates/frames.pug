@@ -29,6 +29,7 @@ script(type="text/ng-template", id="frames.html")
                             img.list-item-image(ng-src="{{frame.image}}")
                     div(flex="60")
                         h2.md-title Frame {{frame.index}}
-                        p.md-subhead {{frame.tags.join(', ')}}
+                        p.md-subhead(ng-if="frame.tagsString") Tags: {{frame.tagsString}}
+                        p.md-subhead(ng-if="frame.logosString") Logos: {{frame.logosString}}
                     div(flex)
 

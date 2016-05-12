@@ -90,7 +90,8 @@
                   <div flex="20"><a href="{{frame.image}}" target="_blank"><img class="list-item-image" ng-src="{{frame.image}}"></a></div>
                   <div flex="60">
                     <h2 class="md-title">Frame {{frame.index}}</h2>
-                    <p class="md-subhead">{{frame.tags.join(', ')}}</p>
+                    <p class="md-subhead" ng-if="frame.tagsString">Tags: {{frame.tagsString}}</p>
+                    <p class="md-subhead" ng-if="frame.logosString">Logos: {{frame.logosString}}</p>
                   </div>
                   <div flex></div>
                 </li>
