@@ -17,7 +17,7 @@ if [ -z "$FRAMES_API" ]; then
 fi
 
 # Patching config
-sed -i "s|%FRAMES_API%|${FRAMES_API}|g" /public/js/app.js
+sed -i "s|%FRAMES_API%|${FRAMES_API}|g" /usr/src/app/public/js/app.js
 
 # execute nodejs application
 exec npm start
