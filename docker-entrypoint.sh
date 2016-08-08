@@ -11,5 +11,13 @@ if [ -z "$NSQD_ADDRESS" ]; then
     exit 1
 fi
 
+if [ -z "$FRAMES_API" ]; then
+    echo "FRAMES_API environment variable required"
+    exit 1
+fi
+
+# Patching config
+sed -i "s|%FRAMES_API%|${FRAMES_API}|g" /public/js/app.js
+
 # execute nodejs application
 exec npm start

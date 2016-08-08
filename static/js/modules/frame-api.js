@@ -6,11 +6,11 @@
 (function(window, angular) {
   "use strict";
 
-  var module = angular.module('frame-api', []);
+  var module = angular.module('frame-api', ['settings']);
 
   module.factory('frameApi', [
-    '$http', function ($http) {
-      var apiUrl = 'http://qa-video-frames.clickberry.tv';
+    '$http', 'urls', function ($http, urls) {
+      var apiUrl = 'http://' + urls.frameApi;
 
       return {
         

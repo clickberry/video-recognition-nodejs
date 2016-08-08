@@ -63,7 +63,7 @@
         $state.go('home');
       };
 
-      $rootScope.pageTitle = 'Clickberry Video Recognition Service';
+      $rootScope.pageTitle = 'Video Recognition Service';
       $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {
         if (angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
           $rootScope.pageTitle = toState.data.pageTitle;

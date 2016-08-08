@@ -12,7 +12,7 @@ script(type="text/ng-template", id="home.html")
                     div(flex="80")
                         form(name="uploadform", ng-submit="upload(file)")
                             p.md-display-2 Upload Video
-                            p.md-subhead Upload your local video for recognition
+                            p.md-subhead Upload your video for recognition
                             md-input-container.md-block
                                 input.file-input(required, type="file", file-model="file")
                             md-button.md-fab.md-raised.md-accent.app-button(type="submit", aria-label="Upload", ng-disabled="uploadform.$invalid || loading")

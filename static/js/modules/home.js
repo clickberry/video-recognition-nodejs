@@ -21,7 +21,7 @@
             templateUrl: 'home.html',
             controller: 'HomeCtrl',
             data: {
-              pageTitle: 'Clickberry Video Recognition Service'
+              pageTitle: 'Video Recognition Service'
             }
           });
         }
