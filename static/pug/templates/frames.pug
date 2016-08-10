@@ -14,6 +14,9 @@ script(type="text/ng-template", id="frames.html")
                     div(flex="80")
                         p.md-display-2 Video Uploaded
                         p.md-subhead Object recognition results will be available in a few seconds.
+                        p(ng-if="frames.length")
+                            video(controls)
+                                source(src="{{frames[0].videoUri}}", type="video/mp4")
                     div(flex)
         md-content.app-secondary
             div.app-secondary-annotation(ng-if="!frames.length", layout="row")
@@ -24,10 +27,10 @@ script(type="text/ng-template", id="frames.html")
             ul.list-items(ng-if="frames.length")
                 li(layout="row", layout-align="start center", ng-repeat="frame in frames")
                     div(flex="10", layout="row", layout-align="start center")
-                    div(flex="20")
+                    div(flex="30")
                         a(href="{{frame.image}}", target="_blank")
                             img.list-item-image(ng-src="{{frame.image}}")
-                    div(flex="60")
+                    div(flex="50")
                         h2.md-title Frame {{frame.segmentIndex || 0}}.{{frame.frameIndex}}
                         p.md-subhead(ng-if="frame.tagsString") Tags: {{frame.tagsString}}
                         p.md-subhead(ng-if="frame.faces.length") Faces: {{frame.faces.length}}
