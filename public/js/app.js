@@ -33,11 +33,11 @@
 (function(window, angular) {
   "use strict";
 
-  var module = angular.module('frame-api', []);
+  var module = angular.module('frame-api', ['settings']);
 
   module.factory('frameApi', [
-    '$http', function ($http) {
-      var apiUrl = 'http://qa-video-frames.clickberry.tv';
+    '$http', 'urls', function ($http, urls) {
+      var apiUrl = 'http://' + urls.frameApi;
 
       return {
         
@@ -87,10 +87,14 @@
 
     // Controllers
     module.controller('FramesCtrl', [
-      '$scope', '$stateParams', 'frameApi', '$timeout',
-      function ($scope, $stateParams, frameApi, $timeout) {
+      '$scope', '$stateParams', 'frameApi', '$timeout', '$sce',
+      function ($scope, $stateParams, frameApi, $timeout, $sce) {
         $scope.frames = [];
         $scope.loading = false;
+
+        $scope.trustSrc = function(src) {
+          return $sce.trustAsResourceUrl(src);
+        };
 
         function normalizeFrame(frame) {
           frame.tagsString = frame.tags ? frame.tags.join(', ') : null;
@@ -145,7 +149,7 @@
             templateUrl: 'home.html',
             controller: 'HomeCtrl',
             data: {
-              pageTitle: 'Clickberry Video Recognition Service'
+              pageTitle: 'Video Recognition Service'
             }
           });
         }
@@ -181,6 +185,14 @@
     ]);
     
 })(window, window.angular);
+(function (angular) {
+    "use strict";
+
+    angular.module('settings', [])
+      .constant('urls', {
+        frameApi: '%FRAMES_API%'
+      });
+}) ((window.angular));
 /**
  * @fileOverview Video API service.
  * @module video-api
@@ -283,7 +295,7 @@
         $state.go('home');
       };
 
-      $rootScope.pageTitle = 'Clickberry Video Recognition Service';
+      $rootScope.pageTitle = 'Video Recognition Service';
       $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {
         if (angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
           $rootScope.pageTitle = toState.data.pageTitle;

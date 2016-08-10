@@ -28,10 +28,14 @@
 
     // Controllers
     module.controller('FramesCtrl', [
-      '$scope', '$stateParams', 'frameApi', '$timeout',
-      function ($scope, $stateParams, frameApi, $timeout) {
+      '$scope', '$stateParams', 'frameApi', '$timeout', '$sce',
+      function ($scope, $stateParams, frameApi, $timeout, $sce) {
         $scope.frames = [];
         $scope.loading = false;
+
+        $scope.trustSrc = function(src) {
+          return $sce.trustAsResourceUrl(src);
+        };
 
         function normalizeFrame(frame) {
           frame.tagsString = frame.tags ? frame.tags.join(', ') : null;

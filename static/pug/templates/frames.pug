@@ -15,8 +15,8 @@ script(type="text/ng-template", id="frames.html")
                         p.md-display-2 Video Uploaded
                         p.md-subhead Object recognition results will be available in a few seconds.
                         p(ng-if="frames.length")
-                            video(controls)
-                                source(src="{{frames[0].videoUri}}", type="video/mp4")
+                            video.original-video(controls)
+                                source(src="{{trustSrc(frames[0].videoUri)}}", type="video/mp4")
                     div(flex)
         md-content.app-secondary
             div.app-secondary-annotation(ng-if="!frames.length", layout="row")
