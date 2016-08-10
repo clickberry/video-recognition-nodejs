@@ -38,6 +38,7 @@
         };
 
         function normalizeFrame(frame) {
+          frame.clarifaiString = frame.clarifai ? frame.clarifai.join(', ') : null;
           frame.tagsString = frame.tags ? frame.tags.join(', ') : null;
           frame.logosString = frame.logos ? frame.logos.map(function (l) { return l.description; }).join(', ') : null;
           frame.textString = frame.text ? frame.text.description : null;

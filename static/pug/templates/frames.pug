@@ -32,6 +32,7 @@ script(type="text/ng-template", id="frames.html")
                             img.list-item-image(ng-src="{{frame.image}}")
                     div(flex="50")
                         h2.md-title Frame {{frame.segmentIndex || 0}}.{{frame.frameIndex}}
+                        p.md-subhead(ng-if="frame.clarifaiString") Clarifai tags: {{frame.clarifaiString}}
                         p.md-subhead(ng-if="frame.tagsString") Tags: {{frame.tagsString}}
                         p.md-subhead(ng-if="frame.faces.length") Faces: {{frame.faces.length}}
                         p.md-subhead(ng-if="frame.logosString") Logos: {{frame.logosString}}
