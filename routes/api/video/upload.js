@@ -14,7 +14,9 @@ var uuid = require('node-uuid');
 var path = require('path');
 var multiparty = require('multiparty');
 var AWS = require('aws-sdk');
-var s3 = new AWS.S3();
+var s3 = new AWS.S3({
+  signatureVersion: 'v4'
+});
 var Bus = require('../../../lib/bus');
 var bus = new Bus();
 
